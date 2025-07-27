@@ -1,10 +1,8 @@
 import {
   AcademicCapIcon,
   ArrowPathIcon,
-  CloudArrowUpIcon,
   FingerPrintIcon,
   GlobeAltIcon,
-  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 
 const features = [
