@@ -28,7 +28,6 @@ app.post("/api/test", (req, res) => {
 app.post("/api/register", async (req, res) => {
   // Wrap all logic in a single, robust try...catch block
   try {
-    console.log(req.body);
     const { name, email, mobile } = req.body;
 
     if (!name || !email || !mobile) {

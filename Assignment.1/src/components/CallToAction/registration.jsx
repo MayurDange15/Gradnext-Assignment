@@ -24,11 +24,14 @@ export default function Registration() {
     };
 
     try {
-      const res = await fetch("http://localhost:5050/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "https://gradnext-assignment-s6qm.onrender.com/api/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
       // Handle non-successful HTTP responses (e.g., 400, 500)
       if (!res.ok) {
