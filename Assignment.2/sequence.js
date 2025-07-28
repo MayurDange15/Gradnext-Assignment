@@ -38,7 +38,11 @@ function scheduleReminders() {
     });
 
     if (updated) {
-      fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+      try {
+        fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+      } catch (writeErr) {
+        console.error("❌ Failed to write JSON:", writeErr);
+      }
     }
   }, 30000); // check every 30 seconds
 }

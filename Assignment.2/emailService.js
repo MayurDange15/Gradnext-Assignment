@@ -1,10 +1,11 @@
 const { Resend } = require("resend");
-// const resend = new Resend(process.env.RESEND_API_KEY);
-const resend = new Resend("re_iL4yizTV_84xcuwX14mCCTwAP5csSEacZ");
+require("dotenv").config();
+const resend = new Resend(process.env.RESEND_API_KEY);
+// const resend = new Resend("re_iL4yizTV_84xcuwX14mCCTwAP5csSEacZ");
 
 async function sendInitialEmail(user) {
   return resend.emails.send({
-    from: "GradNext <onboarding@resend.dev>",
+    from: "GradNext <ubtxccerijbznmbsev@xfavaj.com>",
     to: user.email,
     subject: "Welcome to GradNext! Confirm Your Spot",
     html: `<p>Hi ${user.name},</p>
@@ -15,7 +16,7 @@ async function sendInitialEmail(user) {
 
 async function sendReminderEmail(user) {
   return resend.emails.send({
-    from: "GradNext <onboarding@resend.dev>",
+    from: "GradNext <ubtxccerijbznmbsev@xfavaj.com>",
     to: user.email,
     subject: "Reminder: Your GradNext Spot is Waiting!",
     html: `<p>Hi ${user.name},</p>
@@ -26,7 +27,7 @@ async function sendReminderEmail(user) {
 
 async function sendFinalEmail(user) {
   return resend.emails.send({
-    from: "GradNext <onboarding@resend.dev>",
+    from: "GradNext <ubtxccerijbznmbsev@xfavaj.com>",
     to: user.email,
     subject: "Final Notice: GradNext Registration Closing Soon",
     html: `<p>Hi ${user.name},</p>
