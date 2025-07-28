@@ -1,39 +1,114 @@
-const { Resend } = require("resend");
 require("dotenv").config();
-const resend = new Resend(process.env.RESEND_API_KEY);
-// const resend = new Resend("re_iL4yizTV_84xcuwX14mCCTwAP5csSEacZ");
+const nodemailer = require("nodemailer");
+const Mailgen = require("mailgen");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+  },
+});
+
+const mailGenerator = new Mailgen({
+  theme: "default",
+  product: {
+    name: "GradNext",
+    link: "https://gradnext.com",
+  },
+});
 
 async function sendInitialEmail(user) {
-  return resend.emails.send({
-    from: "GradNext <ubtxccerijbznmbsev@xfavaj.com>",
+  const email = {
+    body: {
+      name: user.name,
+      intro: "Thanks for registering for GradNext!",
+      action: {
+        instructions: "To complete your enrollment, click below:",
+        button: {
+          color: "#346df1",
+          text: "Pay Now",
+          link: `https://gradnext.com/pay/${user.id}`,
+        },
+      },
+      outro: "If you have any questions, just reply to this email.",
+    },
+  };
+
+  const emailBody = mailGenerator.generate(email);
+  const plainText = mailGenerator.generatePlaintext(email);
+
+  const message = {
+    from: process.env.MAIL_USER,
     to: user.email,
-    subject: "Welcome to GradNext! Confirm Your Spot",
-    html: `<p>Hi ${user.name},</p>
-           <p>Thanks for registering! Click below to confirm your participation.</p>
-           <p><a href="http://localhost:5173/pay/${user.id}">Pay Now</a></p>`,
-  });
+    subject: "Welcome to GradNext – Confirm Your Spot",
+    html: emailBody,
+    text: plainText,
+  };
+
+  return transporter.sendMail(message);
 }
 
 async function sendReminderEmail(user) {
-  return resend.emails.send({
-    from: "GradNext <ubtxccerijbznmbsev@xfavaj.com>",
+  const email = {
+    body: {
+      name: user.name,
+      intro: "Just a reminder – your spot at GradNext is still waiting!",
+      action: {
+        instructions: "Complete your registration here:",
+        button: {
+          color: "#FFA500",
+          text: "Complete Enrollment",
+          link: `https://gradnext.com/pay/${user.id}`,
+        },
+      },
+      outro: "We’re here if you need any help!",
+    },
+  };
+
+  const emailBody = mailGenerator.generate(email);
+  const plainText = mailGenerator.generatePlaintext(email);
+
+  const message = {
+    from: process.env.MAIL_USER,
     to: user.email,
-    subject: "Reminder: Your GradNext Spot is Waiting!",
-    html: `<p>Hi ${user.name},</p>
-           <p>This is a friendly reminder to complete your payment and reserve your spot.</p>
-           <p><a href="http://localhost:5173/pay/${user.id}">Pay Now</a></p>`,
-  });
+    subject: "⏰ Reminder: Finish Your GradNext Enrollment",
+    html: emailBody,
+    text: plainText,
+  };
+
+  return transporter.sendMail(message);
 }
 
 async function sendFinalEmail(user) {
-  return resend.emails.send({
-    from: "GradNext <ubtxccerijbznmbsev@xfavaj.com>",
+  const email = {
+    body: {
+      name: user.name,
+      intro: "This is your final reminder to confirm your spot at GradNext.",
+      action: {
+        instructions: "Enroll before it’s too late:",
+        button: {
+          color: "#dc3545",
+          text: "Enroll Now",
+          link: `https://gradnext.com/pay/${user.id}`,
+        },
+      },
+      outro: "Hope to see you soon. Don’t miss out!",
+    },
+  };
+
+  const emailBody = mailGenerator.generate(email);
+  const plainText = mailGenerator.generatePlaintext(email);
+
+  const message = {
+    from: process.env.MAIL_USER,
     to: user.email,
-    subject: "Final Notice: GradNext Registration Closing Soon",
-    html: `<p>Hi ${user.name},</p>
-           <p>This is your final reminder. Complete payment now or lose your spot.</p>
-           <p><a href="http://localhost:5173/pay/${user.id}">Pay Now</a></p>`,
-  });
+    subject: "⚠️ Final Notice: Secure Your Spot at GradNext",
+    html: emailBody,
+    text: plainText,
+  };
+
+  return transporter.sendMail(message);
 }
 
 module.exports = { sendInitialEmail, sendReminderEmail, sendFinalEmail };

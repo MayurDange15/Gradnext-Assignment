@@ -24,15 +24,31 @@ function scheduleReminders() {
 
       if (user.status === "pending") {
         if (minutesPassed > 2 && !user.reminded) {
-          sendReminderEmail(user);
+          sendReminderEmail(user)
+            .then(() => {
+              console.log(`📧 Reminder sent to ${user.email}`);
+            })
+            .catch((err) => {
+              console.error(
+                `❌ Reminder failed for ${user.email}:`,
+                err.message
+              );
+            });
           user.reminded = true;
           updated = true;
-          console.log(`Reminder sent to ${user.email}`);
         } else if (minutesPassed > 3 && !user.final) {
-          sendFinalEmail(user);
+          sendFinalEmail(user)
+            .then(() => {
+              console.log(`📧 Final email sent to ${user.email}`);
+            })
+            .catch((err) => {
+              console.error(
+                `❌ Final email failed for ${user.email}:`,
+                err.message
+              );
+            });
           user.final = true;
           updated = true;
-          console.log(`Final email sent to ${user.email}`);
         }
       }
     });
