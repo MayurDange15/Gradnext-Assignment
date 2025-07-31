@@ -1,12 +1,111 @@
-# React + Vite
+# GradNext Assignment 1: Registration Form Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is the frontend component of the GradNext Full Stack assignment. It allows users to submit their interest in joining a cohort by filling out a registration form. This form connects to the Assignment 2 backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Objective
 
-## Expanding the ESLint configuration
+- Build a responsive React-based registration form
+- Validate user inputs (name, email, mobile)
+- Connect to backend endpoint (`/api/register`)
+- Display loading, success, and error messages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧰 Tech Stack
+
+| Layer     | Stack             |
+| --------- | ----------------- |
+| Frontend  | React.js          |
+| Styling   | Tailwind CSS      |
+| API Comm. | Fetch API / Axios |
+
+---
+
+## 📁 Folder Structure
+
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   └── Registration.jsx   # Main form component
+│   ├── App.jsx
+│   └── index.css              # Tailwind & custom styles
+├── public/
+└── package.json
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/gradnext-frontend.git
+cd gradnext-frontend
+npm install
+```
+
+### 2. Update Backend API URL (if needed)
+
+In `Registration.jsx`:
+
+```js
+const res = await fetch("http://localhost:5050/api/register", {...})
+```
+
+Change the URL if deployed to Render or other backend.
+
+### 3. Run the App
+
+```bash
+npm run dev  # If using Vite
+```
+
+The app runs at: `http://localhost:5173`
+
+---
+
+## ✏️ Form Fields
+
+| Field  | Type  | Validation             |
+| ------ | ----- | ---------------------- |
+| Name   | text  | Required, max 40 chars |
+| Email  | email | Required, valid email  |
+| Mobile | tel   | 10-digit numeric only  |
+
+---
+
+## 🧪 UI Feedback
+
+- 🌀 Loading spinner during submission
+- ✅ Success message on successful registration
+- ❌ Error message if backend fails
+
+---
+
+## 📌 Notes
+
+- Uses native HTML form + Tailwind classes
+- Connected to Assignment 2 backend for full automation
+- Font: Avenir Black (optional)
+
+---
+
+## 🧠 Learnings
+
+- Form state management with React
+- Input validation and formatting
+- Connecting frontend to custom backend
+
+---
+
+## 📜 License
+
+MIT
+
+---
+
+Built for **GradNext** Full Stack Assignment 1 by Mayur Rambhau Dange
